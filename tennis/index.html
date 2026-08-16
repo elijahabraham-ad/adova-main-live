@@ -162,6 +162,7 @@
   .stage .num{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.2em;color:rgba(18,38,63,.35);margin-bottom:14px;transition:color .35s ease}
   .stage h3{font-size:clamp(28px,3.6vw,40px);margin-bottom:14px;color:rgba(18,38,63,.32);transition:color .35s ease}
   .stage p{font-size:17.5px;color:rgba(18,38,63,.32);max-width:44ch;transition:color .35s ease}
+  .stage:last-child{min-height:62vh}
   .stage.on .num{color:var(--coral-ink)}
   .stage.on h3{color:var(--ink)}
   .stage.on p{color:var(--ink-soft)}
@@ -220,8 +221,23 @@
   footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
   footer a{color:rgba(255,252,242,.86)}
 
+  /* ---------- page-long rally (fixed overlay, rides the whole scroll) ---------- */
+  #rally{position:fixed;inset:0;z-index:50;pointer-events:none;overflow:hidden}
+  #rally svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+  #rallyBall{position:absolute;top:0;left:0;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;
+    background:var(--optic);border:2.5px solid var(--ink);pointer-events:auto;cursor:pointer;
+    box-shadow:0 4px 14px rgba(18,38,63,.22);will-change:transform}
+  #rallyBall::after{content:"";position:absolute;inset:3px;border-radius:50%;
+    border-top:2px solid rgba(18,38,63,.45);border-bottom:2px solid rgba(18,38,63,.45)}
+  #rallyBall.pop{animation:pop .45s cubic-bezier(.2,1.6,.4,1)}
+  @keyframes pop{0%{filter:none}40%{filter:brightness(1.25)}100%{filter:none}}
+  #rally .trail{fill:none;stroke:var(--optic);stroke-width:3;stroke-linecap:round;opacity:.55}
+  #rally .racket{opacity:0}
+
   /* ---------- responsive ---------- */
   @media (max-width:900px){
+    #rallyBall{width:18px;height:18px;margin:-9px 0 0 -9px;border-width:2px}
+    #rally .trail{stroke-width:2.5;opacity:.4}
     .hero-grid,.about,.book-grid,.courts,.boxes{grid-template-columns:1fr;gap:30px}
     .hero{padding:54px 0 58px}
     .strip .wrap{grid-template-columns:1fr 1fr}
@@ -248,6 +264,20 @@
 </style>
 </head>
 <body>
+
+<div id="rally" aria-hidden="true">
+  <svg id="rallySvg" preserveAspectRatio="none">
+    <path class="trail" id="rallyTrail" d="" />
+    <g class="racket" id="rallyRacket">
+      <rect x="-5" y="-10" width="10" height="38" rx="5" fill="#12263F"/>
+      <path d="M -4 -10 L -9 -52 M 4 -10 L 9 -52" stroke="#12263F" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="0" cy="-90" rx="29" ry="38" fill="rgba(255,252,242,.35)" stroke="#12263F" stroke-width="3.5"/>
+      <path d="M -19 -90 V -90 M -10 -122 V -58 M 0 -126 V -54 M 10 -122 V -58" stroke="rgba(18,38,63,.35)" stroke-width="1.6"/>
+      <path d="M -28 -110 H 28 M -29 -96 H 29 M -29 -82 H 29 M -27 -68 H 27" stroke="rgba(18,38,63,.35)" stroke-width="1.6"/>
+    </g>
+  </svg>
+  <div id="rallyBall"></div>
+</div>
 
 <div class="bar">
   <div class="wrap">
@@ -607,6 +637,115 @@
   window.addEventListener('resize', onScroll);
   window.addEventListener('load', render);
   render();
+})();
+
+/* ------------------------------------------------------------------
+   PAGE-LONG RALLY
+   One ball travels the entire page as you scroll. At each waypoint a
+   racket swings and sends it into the next section. Colors come from
+   the brand tokens, so this module survives a rebrand untouched.
+   ------------------------------------------------------------------ */
+(function(){
+  var layer  = document.getElementById('rally');
+  var svg    = document.getElementById('rallySvg');
+  var trail  = document.getElementById('rallyTrail');
+  var racket = document.getElementById('rallyRacket');
+  var ball   = document.getElementById('rallyBall');
+  if(!layer || !ball) return;
+
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ layer.remove(); return; }
+
+  // waypoints in viewport fractions: where the ball gets struck next.
+  // x values hug the gutters so the ball rides beside the text, not over it.
+  var WP = [
+    {p:0.00, x:0.15, y:0.74},
+    {p:0.18, x:0.85, y:0.28},
+    {p:0.38, x:0.13, y:0.36},
+    {p:0.58, x:0.87, y:0.68},
+    {p:0.78, x:0.16, y:0.30},
+    {p:1.00, x:0.80, y:0.72}
+  ];
+  var ARC = 0.20;           // how high each flight bows, in viewport heights
+  var SWING = 0.16;         // slice of the segment where the racket is visible
+  var vw = 0, vh = 0, narrow = false, ticking = false;
+
+  function size(){
+    vw = window.innerWidth; vh = window.innerHeight;
+    narrow = vw < 900;
+    svg.setAttribute('viewBox', '0 0 ' + vw + ' ' + vh);
+  }
+  function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
+  function lerp(a,b,t){ return a + (b-a)*t; }
+  function ease(t){ return t*t*(3-2*t); }
+
+  // Ride the real gutter beside the content column, whatever the viewport is.
+  // The content is max-width 1180 centered, so the free space is (vw - content)/2
+  // per side. Anything narrower than that and the ball hugs the screen edge.
+  function px(f){
+    var content = Math.min(1180, vw - 48);
+    var edge = Math.max(0, (vw - content) / 2);
+    var inset = clamp(edge * 0.5, 22, vw * 0.16);
+    return f < 0.5 ? inset : vw - inset;
+  }
+
+  function segAt(p){
+    for(var i=0;i<WP.length-1;i++){
+      if(p <= WP[i+1].p) return {i:i, t:(p - WP[i].p) / (WP[i+1].p - WP[i].p)};
+    }
+    return {i:WP.length-2, t:1};
+  }
+
+  // parabolic flight between two waypoints
+  function point(a,b,t){
+    return [
+      lerp(px(a.x), px(b.x), t),
+      lerp(a.y*vh, b.y*vh, t) - Math.sin(Math.PI*t) * ARC * vh
+    ];
+  }
+
+  function render(){
+    ticking = false;
+    var doc = document.documentElement;
+    var span = doc.scrollHeight - vh;
+    var p = span > 0 ? clamp(window.scrollY / span, 0, 1) : 0;
+
+    var s = segAt(p), a = WP[s.i], b = WP[s.i+1], t = s.t;
+    var pt = point(a,b,t);
+    ball.style.transform = 'translate(' + pt[0].toFixed(1) + 'px,' + pt[1].toFixed(1) + 'px) rotate(' + (p*1440).toFixed(0) + 'deg)';
+
+    // trail: the flight line already covered in this segment
+    var d = '', steps = 14;
+    for(var k=0;k<=steps;k++){
+      var q = (k/steps) * t;
+      var c = point(a,b,q);
+      d += (k ? ' L ' : 'M ') + c[0].toFixed(1) + ' ' + c[1].toFixed(1);
+    }
+    trail.setAttribute('d', d);
+
+    // racket: swings at the start of every segment after the first
+    if(s.i > 0 && t < SWING){
+      var w = t / SWING;
+      var hit = point(a,b,0);
+      var ang = lerp(-72, 46, ease(w));
+      racket.setAttribute('transform','translate(' + hit[0].toFixed(1) + ',' + (hit[1]+48).toFixed(1) + ') rotate(' + ang.toFixed(1) + ') scale(' + (narrow ? 0.62 : 0.8) + ')');
+      racket.style.opacity = (Math.sin(Math.PI*w) * 0.7).toFixed(2);
+    } else {
+      racket.style.opacity = 0;
+    }
+  }
+
+  function onScroll(){ if(!ticking){ ticking = true; window.requestAnimationFrame(render); } }
+
+  // the ball is the one thing on the overlay you can actually touch
+  ball.addEventListener('click', function(){
+    ball.classList.remove('pop');
+    void ball.offsetWidth;
+    ball.classList.add('pop');
+  });
+
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', function(){ size(); onScroll(); });
+  size(); render();
 })();
 </script>
 

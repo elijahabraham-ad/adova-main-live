@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Direction 2 — Night Session | Enjoyable Tennis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Figtree:wght@400;500;600;700&family=Chivo+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --deep:#0B1F1C;
+  --court:#16443B;
+  --line:#EAF3EC;
+  --halide:#FFC24A;
+  --ball:#D8FF3E;
+  --dusk:#2B6E86;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--deep);color:var(--line);
+  font-family:'Figtree',system-ui,sans-serif;font-size:17px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 32px;position:relative;z-index:3}
+.disp{font-family:'Familjen Grotesk',system-ui,sans-serif}
+.mono{font-family:'Chivo Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+
+.chip{position:fixed;top:0;left:0;right:0;background:var(--line);color:var(--deep);z-index:60;padding:7px 0}
+.chip .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.chip .mono{font-size:11px;opacity:.8}
+
+/* ---- SIGNATURE: the lit night court ---- */
+.stage{position:relative;padding-top:56px;overflow:hidden;
+  background:
+    radial-gradient(90% 60% at 18% 4%, rgba(255,194,74,.30) 0%, rgba(255,194,74,0) 58%),
+    radial-gradient(90% 60% at 82% 4%, rgba(255,194,74,.24) 0%, rgba(255,194,74,0) 58%),
+    linear-gradient(180deg,#0D2A34 0%, #0B1F1C 46%, #0B1F1C 100%);
+}
+.pole{position:absolute;top:56px;width:2px;height:150px;background:linear-gradient(180deg,rgba(234,243,236,.55),rgba(234,243,236,0));z-index:1}
+.pole.l{left:13%}.pole.r{right:13%}
+.pole:before{content:"";position:absolute;top:-4px;left:-13px;width:28px;height:9px;border-radius:2px;background:var(--halide);box-shadow:0 0 26px 10px rgba(255,194,74,.55)}
+.courtart{position:absolute;left:50%;bottom:-120px;width:1500px;height:660px;transform:translateX(-50%) perspective(920px) rotateX(66deg);
+  background:linear-gradient(180deg,#1B5147 0%, #123A32 100%);
+  border:3px solid rgba(234,243,236,.85);border-radius:2px;z-index:0;
+  box-shadow:0 0 180px 60px rgba(255,194,74,.10) inset;
+}
+.courtart:before{content:"";position:absolute;left:0;right:0;top:50%;height:3px;background:rgba(234,243,236,.72);transform:translateY(-50%)}
+.courtart:after{content:"";position:absolute;top:22%;bottom:22%;left:14%;right:14%;border:3px solid rgba(234,243,236,.55)}
+.svc{position:absolute;top:22%;bottom:22%;left:50%;width:3px;background:rgba(234,243,236,.55);z-index:1}
+.alley-l,.alley-r{position:absolute;top:0;bottom:0;width:3px;background:rgba(234,243,236,.45)}
+.alley-l{left:8%}.alley-r{right:8%}
+.ballmark{position:absolute;left:36%;top:30%;width:14px;height:14px;border-radius:50%;background:var(--ball);box-shadow:0 0 22px 6px rgba(216,255,62,.5);z-index:2}
+.scrim{position:absolute;left:0;right:0;bottom:0;height:220px;background:linear-gradient(180deg,rgba(11,31,28,0),var(--deep));z-index:2}
+
+.bar{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:20px 0;border-bottom:1px solid rgba(234,243,236,.16)}
+.mark{display:flex;align-items:center;gap:11px}
+.mark .b{width:24px;height:24px;border-radius:50%;background:var(--ball);flex:none;box-shadow:0 0 16px 3px rgba(216,255,62,.45)}
+.mark b{font-family:'Familjen Grotesk';font-weight:700;font-size:18px;letter-spacing:.01em}
+.navlinks{display:flex;gap:26px}
+.navlinks a{color:rgba(234,243,236,.78);text-decoration:none;font-weight:500;font-size:15px}
+
+.hero{padding:76px 0 300px;max-width:760px}
+.now{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(255,194,74,.45);color:var(--halide);padding:7px 14px;border-radius:6px}
+.now i{width:7px;height:7px;border-radius:50%;background:var(--halide);display:block;box-shadow:0 0 10px 2px rgba(255,194,74,.7)}
+h1{font-family:'Familjen Grotesk';font-weight:700;font-size:clamp(46px,7vw,92px);line-height:.96;letter-spacing:-.03em;margin:24px 0 22px}
+h1 em{font-style:normal;color:var(--halide)}
+.lede{font-size:19.5px;color:rgba(234,243,236,.76);max-width:46ch}
+.cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px}
+.btn{display:inline-block;padding:15px 26px;border-radius:8px;text-decoration:none;font-weight:600;font-size:16px}
+.btn-a{background:var(--ball);color:#0B1F1C}
+.btn-b{border:1px solid rgba(234,243,236,.35);color:var(--line)}
+.venue{margin-top:28px;display:flex;gap:22px;flex-wrap:wrap}
+.venue span{color:rgba(234,243,236,.55);font-size:13px;letter-spacing:.04em}
+
+/* ---- credential rail ---- */
+.rail{background:var(--court);border-top:1px solid rgba(234,243,236,.14);border-bottom:1px solid rgba(234,243,236,.14)}
+.rail .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;padding-top:26px;padding-bottom:26px}
+.rail .it b{display:block;color:var(--halide);margin-bottom:6px}
+.rail .it p{font-size:14px;color:rgba(234,243,236,.82);line-height:1.45}
+
+/* ---- programs band ---- */
+.band{padding:88px 0 20px}
+.bandhead{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:38px;flex-wrap:wrap}
+h2{font-family:'Familjen Grotesk';font-weight:700;font-size:clamp(32px,4.2vw,54px);line-height:1;letter-spacing:-.028em}
+.bandhead p{max-width:40ch;color:rgba(234,243,236,.66);font-size:16px}
+.rows{border-top:1px solid rgba(234,243,236,.16)}
+.row{display:grid;grid-template-columns:88px 1.1fr 1.5fr;gap:28px;align-items:center;padding:26px 0;border-bottom:1px solid rgba(234,243,236,.16)}
+.row .n{color:var(--halide)}
+.row h4{font-family:'Familjen Grotesk';font-weight:600;font-size:21px;letter-spacing:-.015em}
+.row p{font-size:15px;color:rgba(234,243,236,.68);line-height:1.5}
+.row:hover{background:rgba(43,110,134,.14)}
+
+/* ---- booking ---- */
+.book{margin:80px 0;background:var(--court);border:1px solid rgba(234,243,236,.16);border-radius:20px;padding:54px 48px;display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center;position:relative;overflow:hidden}
+.book:before{content:"";position:absolute;top:-90px;right:-60px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(255,194,74,.22),rgba(255,194,74,0) 70%)}
+.book h2 em{font-style:normal;color:var(--ball)}
+.book p{margin-top:16px;color:rgba(234,243,236,.75);max-width:38ch}
+.book ul{margin-top:24px;list-style:none;display:flex;flex-direction:column;gap:10px}
+.book li{font-size:15px;color:rgba(234,243,236,.82);padding-left:24px;position:relative}
+.book li:before{content:"";position:absolute;left:0;top:9px;width:10px;height:2px;background:var(--halide)}
+.bookbox{position:relative;background:rgba(11,31,28,.62);border:1px solid rgba(234,243,236,.2);border-radius:14px;padding:30px}
+.bookbox .mono{color:var(--halide);display:block;margin-bottom:14px}
+.bookbox a.big{display:block;font-family:'Chivo Mono',monospace;font-size:29px;font-weight:500;color:var(--line);text-decoration:none;letter-spacing:-.01em}
+.bookbox .btn-a{display:block;margin-top:22px;text-align:center}
+.bookbox small{display:block;margin-top:16px;font-size:13px;color:rgba(234,243,236,.55)}
+footer{border-top:1px solid rgba(234,243,236,.14);padding:24px 0 48px;font-size:13px;color:rgba(234,243,236,.5);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+@media(max-width:820px){
+  .wrap{padding:0 20px}
+  .navlinks{display:none}
+  .hero{padding:44px 0 210px}
+  .courtart{width:1000px;height:520px;bottom:-110px}
+  .pole.l{left:6%}.pole.r{right:6%}
+  .rail .wrap{grid-template-columns:1fr;gap:18px}
+  .row{grid-template-columns:1fr;gap:10px;padding:22px 0}
+  .book{grid-template-columns:1fr;padding:34px 24px;gap:30px}
+  .lede{font-size:17.5px}
+}
+</style>
+</head>
+<body>
+
+<div class="chip"><div class="wrap"><span class="mono">Direction 2 / Night Session</span><span class="mono">Enjoyable Tennis — concept</span></div></div>
+
+<div class="stage">
+  <span class="pole l"></span><span class="pole r"></span>
+  <div class="courtart"><span class="svc"></span><span class="alley-l"></span><span class="alley-r"></span><span class="ballmark"></span></div>
+  <div class="scrim"></div>
+
+  <div class="wrap">
+    <div class="bar">
+      <div class="mark"><span class="b"></span><b>Enjoyable Tennis</b></div>
+      <nav class="navlinks"><a href="#">Programs</a><a href="#">Courts</a><a href="#">Coach</a><a href="#">Book</a></nav>
+    </div>
+
+    <section class="hero">
+      <span class="now mono"><i></i>Marietta, GA &middot; PTR Certified</span>
+      <h1>The lights are<br/>on until nine.<br/><em>Come get good.</em></h1>
+      <p class="lede">Tennis lessons in west Cobb for kids who want to get good, high school players chasing a spot, and grown-ups starting over. Coached by Sheana Sinclair-Abraham.</p>
+      <div class="cta">
+        <a class="btn btn-a" href="#book">Text (718) 930-4185</a>
+        <a class="btn btn-b" href="#">See the programs</a>
+      </div>
+      <div class="venue"><span>Lost Mountain Tennis Center</span><span>Fair Oaks Tennis Center</span><span>Cobb County PARKS courts</span></div>
+    </section>
+  </div>
+</div>
+
+<div class="rail">
+  <div class="wrap">
+    <div class="it"><b class="mono">Certified</b><p>Professional Tennis Registry, Level 1</p></div>
+    <div class="it"><b class="mono">County approved</b><p>On the Cobb County PARKS approved teaching professionals list</p></div>
+    <div class="it"><b class="mono">AYTEF</b><p>High School Tennis Coordinator, Atlanta Youth Tennis &amp; Education Foundation</p></div>
+    <div class="it"><b class="mono">Day job</b><p>Math teacher in the Cobb County School District</p></div>
+  </div>
+</div>
+
+<div class="wrap">
+<section class="band">
+  <div class="bandhead">
+    <h2>Four ways in, one court.</h2>
+    <p>Same coach, same standard. The only thing that changes is where you're starting from.</p>
+  </div>
+  <div class="rows">
+    <div class="row"><span class="n mono">01</span><h4>First swings</h4><p>Red and orange balls, shorter courts, lighter frames. Kids learn to rally in the first few sessions instead of chasing balls into the fence.</p></div>
+    <div class="row"><span class="n mono">02</span><h4>Junior development</h4><p>Strokes built properly, then match play, patterns, and how to hold up when a set gets tight. For players heading toward tournaments and team tennis.</p></div>
+    <div class="row"><span class="n mono">03</span><h4>Middle and high school</h4><p>Tryout-ready in the off-season, sharp during it. Serve, return, doubles positioning, and the point-by-point discipline coaches actually pick for.</p></div>
+    <div class="row"><span class="n mono">04</span><h4>Whenever you started</h4><p>Brand new, back after twenty years off, or holding down a line in ALTA or USTA league. Same coach, same patience.</p></div>
+  </div>
+</section>
+
+<section class="book" id="book">
+  <div>
+    <h2>Send one text and<br/>we'll <em>find a court.</em></h2>
+    <p>No portal, no waitlist. Say who's playing and when you're free, and she'll come back with times and rates.</p>
+    <ul>
+      <li>Player's age and how long they've been playing</li>
+      <li>What you're after: first lessons, team tryouts, league season, or just getting back out there</li>
+      <li>Lost Mountain or Fair Oaks, and the days that work</li>
+    </ul>
+  </div>
+  <div class="bookbox">
+    <span class="mono">Text Coach Sheana</span>
+    <a class="big" href="tel:+17189304185">(718) 930-4185</a>
+    <a class="btn btn-a" href="sms:+17189304185">Start the text</a>
+    <small>sheanace@yahoo.com</small>
+  </div>
+</section>
+
+<footer>
+  <span>Enjoyable Tennis LLC &middot; Marietta, Georgia</span>
+  <span>Lessons at Cobb County PARKS tennis centers</span>
+</footer>
+</div>
+</body>
+</html>
