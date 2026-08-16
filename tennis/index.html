@@ -251,7 +251,7 @@
 
   /* ---------- responsive ---------- */
   @media (max-width:900px){
-    #rallyBall{width:18px;height:18px;margin:-9px 0 0 -9px;border-width:2px}
+    #rallyBall{width:16px;height:16px;margin:-8px 0 0 -8px;border-width:2px}
     #rally .trail{display:none}   /* no gutters on a phone, the line would cut across the copy */
     .hero-grid,.about,.book-grid,.courts,.boxes,.rates{grid-template-columns:1fr;gap:30px}
     .hero{padding:54px 0 58px}
@@ -731,7 +731,7 @@
   function px(f){
     var content = Math.min(1180, vw - 48);
     var edge = Math.max(0, (vw - content) / 2);
-    var inset = clamp(edge * 0.5, 22, vw * 0.16);
+    var inset = clamp(edge * 0.5, narrow ? 13 : 22, vw * 0.16);
     return f < 0.5 ? inset : vw - inset;
   }
 
