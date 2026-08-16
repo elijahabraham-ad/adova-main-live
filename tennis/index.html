@@ -8,7 +8,9 @@
 <meta name="author" content="Enjoyable Tennis LLC" />
 <meta name="robots" content="index, follow" />
 <meta name="theme-color" content="#FFFCF2" />
-<link rel="icon" type="image/png" href="/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/tennis/_logos/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/tennis/_logos/favicon-16x16.png" />
+<link rel="apple-touch-icon" href="/tennis/_logos/apple-touch-icon.png" />
 <link rel="canonical" href="https://www.adovadigital.com/tennis/" />
 
 <meta property="og:type" content="website" />
@@ -35,6 +37,8 @@
   "name": "Enjoyable Tennis LLC",
   "description": "Tennis lessons and junior development in Marietta, Georgia, coached by PTR certified professional Sheana Sinclair-Abraham.",
   "url": "https://www.adovadigital.com/tennis/",
+  "logo": "https://www.adovadigital.com/tennis/_logos/icon-seams-512.png",
+  "image": "https://www.adovadigital.com/tennis/_logos/icon-seams-512.png",
   "telephone": "+1-718-930-4185",
   "email": "sheanace@yahoo.com",
   "areaServed": [
@@ -97,7 +101,8 @@
   .bar{position:sticky;top:0;z-index:60;background:var(--cream);border-bottom:2px solid var(--ink)}
   .bar .wrap{display:flex;align-items:center;justify-content:space-between;height:62px;gap:16px}
   .brand{display:flex;align-items:center;gap:10px;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:18px;letter-spacing:-.03em}
-  .brand img{height:34px;width:auto;display:block}
+  .brand img{height:26px;width:auto;display:block}
+  .brand{text-decoration:none}
   .brand .dot{width:11px;height:11px;border-radius:50%;background:var(--optic);border:2px solid var(--ink);flex:none}
   .bar a.txt{text-decoration:none;background:var(--optic);color:var(--ink);border:2px solid var(--ink);padding:8px 16px;border-radius:999px;font-weight:700;font-size:14px;white-space:nowrap;box-shadow:0 3px 0 var(--ink);transition:transform .15s ease,box-shadow .15s ease}
   .bar a.txt:hover{transform:translate(0,2px);box-shadow:0 1px 0 var(--ink)}
@@ -302,12 +307,9 @@
 
 <div class="bar">
   <div class="wrap">
-    <span class="brand">
-      <!-- Drop the real logo at /tennis/assets/logo.png and this swaps in automatically -->
-      <img src="/tennis/assets/logo.png" alt="Enjoyable Tennis" onerror="this.remove();document.getElementById('brandDot').hidden=false" />
-      <span id="brandDot" class="dot" hidden></span>
-      Enjoyable Tennis
-    </span>
+    <a class="brand" href="#" aria-label="Enjoyable Tennis, back to top">
+      <img src="/tennis/_logos/enjoyable-tennis-logo-noline.svg" alt="Enjoyable Tennis" />
+    </a>
     <a class="txt" href="sms:+17189304185?&amp;body=Hi%20Coach%20Sheana%2C%20I%27d%20like%20to%20book%20a%20lesson.">Text to book</a>
   </div>
 </div>
