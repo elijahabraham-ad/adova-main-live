@@ -15,7 +15,12 @@
 <meta property="og:url" content="https://www.adovadigital.com/tennis/" />
 <meta property="og:title" content="Enjoyable Tennis | Coach Sheana | Marietta, GA" />
 <meta property="og:description" content="Tennis lessons in Marietta, Georgia. Kids, high school players, and adults. PTR certified coach on Cobb County courts." />
+<meta property="og:image" content="https://www.adovadigital.com/tennis/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content="Enjoyable Tennis" />
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://www.adovadigital.com/tennis/og.png" />
 <meta name="twitter:title" content="Enjoyable Tennis | Coach Sheana | Marietta, GA" />
 <meta name="twitter:description" content="Tennis lessons in Marietta, Georgia. Kids, high school players, and adults." />
 
@@ -63,8 +68,10 @@
     --ink:#12263F;        /* text + deep panels (friendly navy, not black) */
     --ink-soft:#4A5D75;   /* secondary text */
     --optic:#DFF34B;      /* ball yellow — primary accent */
+    --optic-lite:#E8F87A; /* same yellow, lifted for text on court green (AA) */
     --sky:#1FB6D9;        /* court blue — kid energy */
-    --coral:#FF6A4D;      /* highlight, used sparingly */
+    --coral:#FF6A4D;      /* highlight fills, never small text on light */
+    --coral-ink:#CC2100;  /* coral for text, passes AA on cream and sand */
     --court:#0F7A6B;      /* court surface green */
     --maxw:1180px;
     --r:18px;             /* friendly radius */
@@ -155,7 +162,7 @@
   .stage .num{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.2em;color:rgba(18,38,63,.35);margin-bottom:14px;transition:color .35s ease}
   .stage h3{font-size:clamp(28px,3.6vw,40px);margin-bottom:14px;color:rgba(18,38,63,.32);transition:color .35s ease}
   .stage p{font-size:17.5px;color:rgba(18,38,63,.32);max-width:44ch;transition:color .35s ease}
-  .stage.on .num{color:var(--coral)}
+  .stage.on .num{color:var(--coral-ink)}
   .stage.on h3{color:var(--ink)}
   .stage.on p{color:var(--ink-soft)}
   .swing-foot{border-top:2px solid var(--ink);margin-top:40px;padding:30px 0 92px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between}
@@ -167,7 +174,7 @@
   .box:hover{transform:translate(0,3px);box-shadow:0 3px 0 var(--ink)}
   .box .who{display:inline-block;align-self:flex-start;background:var(--sky);border:2px solid var(--ink);border-radius:999px;padding:5px 12px;color:var(--ink)}
   .box:nth-child(2) .who{background:var(--optic)}
-  .box:nth-child(3) .who{background:var(--coral);color:var(--cream)}
+  .box:nth-child(3) .who{background:var(--coral);color:var(--ink)}
   .box:nth-child(4) .who{background:var(--cream)}
   .box h3{font-size:27px}
   .box p{font-size:16.5px;color:var(--ink-soft)}
@@ -178,7 +185,7 @@
   .courts{display:grid;grid-template-columns:1fr 1fr;gap:20px}
   .venue{background:var(--court);color:var(--cream);padding:32px 30px;border:2px solid var(--ink);border-radius:var(--r);box-shadow:0 6px 0 var(--ink)}
   .venue h3{font-size:25px;margin-bottom:8px}
-  .venue .mono{color:var(--optic);display:block;margin-bottom:14px}
+  .venue .mono{color:var(--optic-lite);display:block;margin-bottom:14px}
   .venue p{color:rgba(255,252,242,.86);font-size:16px}
   .fees{margin-top:20px;background:var(--cream);border:2px solid var(--ink);border-radius:var(--r);padding:22px 26px}
   .fees p{font-size:16px;color:var(--ink-soft)}
@@ -223,7 +230,7 @@
     .swing-track{grid-template-columns:1fr;gap:0}
     .viz-col{top:62px;height:auto;padding:10px 0 6px;background:var(--sand)}
     .stage{min-height:0;padding:24px 0}
-    .stage .num{color:var(--coral)}
+    .stage .num{color:var(--coral-ink)}
     .stage h3{color:var(--ink)}
     .stage p{color:var(--ink-soft);max-width:none}
     .swing-foot{padding-bottom:66px}
