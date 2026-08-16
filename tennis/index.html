@@ -202,6 +202,16 @@
   .about-copy p:last-child{margin-bottom:0}
   .pull{font-family:"Bricolage Grotesque",sans-serif;font-size:25px;line-height:1.25;letter-spacing:-.025em;color:var(--ink);border-left:5px solid var(--optic);padding-left:20px;margin:26px 0}
 
+  /* ---------- rates ---------- */
+  .rates{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .rate{background:var(--cream);border:2px solid var(--ink);border-radius:var(--r);padding:30px 28px;box-shadow:0 6px 0 var(--ink)}
+  .rate .who{display:inline-block;background:var(--optic);border:2px solid var(--ink);border-radius:999px;padding:5px 12px;margin-bottom:16px}
+  .rate:nth-child(2) .who{background:var(--sky)}
+  .rate b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:clamp(42px,5vw,58px);font-weight:800;letter-spacing:-.035em;line-height:1;margin-bottom:12px}
+  .rate b i{font-style:normal;font-size:19px;font-weight:600;color:var(--ink-soft);letter-spacing:0;margin-left:6px}
+  .rate p{color:var(--ink-soft);font-size:16.5px}
+  .rate-note{margin-top:20px;color:var(--ink-soft);font-size:16px}
+
   /* ---------- booking ---------- */
   .book{background:var(--sky)}
   .book h2{font-size:clamp(31px,4.6vw,52px);max-width:16ch;margin-bottom:20px}
@@ -223,7 +233,7 @@
 
   /* ---------- page-long rally (fixed overlay, rides the whole scroll) ---------- */
   #rally{position:fixed;inset:0;z-index:50;pointer-events:none;overflow:hidden}
-  #rally svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+  #rally svg{position:absolute;inset:0;width:100%;height:100%;display:block;color:var(--optic)}
   #rallyBall{position:absolute;top:0;left:0;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;
     background:var(--optic);border:2.5px solid var(--ink);pointer-events:auto;cursor:pointer;
     box-shadow:0 4px 14px rgba(18,38,63,.22);will-change:transform}
@@ -231,14 +241,14 @@
     border-top:2px solid rgba(18,38,63,.45);border-bottom:2px solid rgba(18,38,63,.45)}
   #rallyBall.pop{animation:pop .45s cubic-bezier(.2,1.6,.4,1)}
   @keyframes pop{0%{filter:none}40%{filter:brightness(1.25)}100%{filter:none}}
-  #rally .trail{fill:none;stroke:var(--optic);stroke-width:3;stroke-linecap:round;opacity:.55}
+  #rally .trail{fill:none;color:var(--optic);stroke:url(#trailFade);stroke-width:3;stroke-linecap:round}
   #rally .racket{opacity:0}
 
   /* ---------- responsive ---------- */
   @media (max-width:900px){
     #rallyBall{width:18px;height:18px;margin:-9px 0 0 -9px;border-width:2px}
-    #rally .trail{stroke-width:2.5;opacity:.4}
-    .hero-grid,.about,.book-grid,.courts,.boxes{grid-template-columns:1fr;gap:30px}
+    #rally .trail{display:none}   /* no gutters on a phone, the line would cut across the copy */
+    .hero-grid,.about,.book-grid,.courts,.boxes,.rates{grid-template-columns:1fr;gap:30px}
     .hero{padding:54px 0 58px}
     .strip .wrap{grid-template-columns:1fr 1fr}
     section{padding:66px 0}
@@ -267,6 +277,17 @@
 
 <div id="rally" aria-hidden="true">
   <svg id="rallySvg" preserveAspectRatio="none">
+    <defs>
+      <!-- the flight line has to cross the text column to get from gutter to
+           gutter, so it fades out in the middle where the copy lives -->
+      <linearGradient id="trailFade" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0"    stop-color="currentColor" stop-opacity="0.75"/>
+        <stop offset="0.28" stop-color="currentColor" stop-opacity="0.16"/>
+        <stop offset="0.5"  stop-color="currentColor" stop-opacity="0.04"/>
+        <stop offset="0.72" stop-color="currentColor" stop-opacity="0.16"/>
+        <stop offset="1"    stop-color="currentColor" stop-opacity="0.75"/>
+      </linearGradient>
+    </defs>
     <path class="trail" id="rallyTrail" d="" />
     <g class="racket" id="rallyRacket">
       <rect x="-5" y="-10" width="10" height="38" rx="5" fill="#12263F"/>
@@ -320,10 +341,10 @@
 
 <div class="strip">
   <div class="wrap">
+    <div class="cred"><b>Division I player</b><span>Played college tennis at the Division I level</span></div>
     <div class="cred"><b>PTR Certified</b><span>Professional Tennis Registry, Level 1</span></div>
     <div class="cred"><b>County approved</b><span>On the Cobb County PARKS approved teaching professionals list</span></div>
     <div class="cred"><b>AYTEF</b><span>High School Tennis Coordinator, Atlanta Youth Tennis &amp; Education Foundation</span></div>
-    <div class="cred"><b>Teacher first</b><span>Math teacher in the Cobb County School District</span></div>
   </div>
 </div>
 
@@ -473,6 +494,7 @@
     <div class="about">
       <div class="about-card">
         <dl>
+          <div><dt class="mono">Played</dt><dd>Division I college tennis</dd></div>
           <div><dt class="mono">Certification</dt><dd>PTR Certified Professional, Level 1</dd></div>
           <div><dt class="mono">Coaching</dt><dd>High School Tennis Coordinator, AYTEF</dd></div>
           <div><dt class="mono">Day job</dt><dd>Math teacher, Cobb County School District</dd></div>
@@ -480,11 +502,34 @@
         </dl>
       </div>
       <div class="about-copy">
-        <p>Sheana grew up in New York and was handed a racket young. Her aunt and uncle coached her through most of her junior career, and that is where she picked up the thing she teaches now: a kid who is enjoying the work will out-practice a kid who is grinding through it.</p>
+        <p>Sheana grew up in New York and was handed a racket young. Her aunt and uncle coached her through most of her junior career, and she went on to play Division I college tennis. Somewhere in there she picked up the thing she teaches now: a kid who is enjoying the work will out-practice a kid who is grinding through it.</p>
         <p class="pull">The name is not decoration. When a lesson stops being fun, the technique stops sticking.</p>
         <p>She teaches math to teenagers by day and coaches them on court after the bell. Through the Atlanta Youth Tennis &amp; Education Foundation at Fair Oaks, she coordinates high school tennis for kids across South Cobb. Enjoyable Tennis is where she takes private students of her own, from five-year-olds swinging at a red ball to adults finally learning a real second serve.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<section id="rates" style="background:var(--sand)">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="mono">What it costs</span>
+      <h2>Straight pricing, no packages to decode.</h2>
+      <p>Rates start here and move with lesson length and how often you play. Court fees are paid separately to Cobb County.</p>
+    </div>
+    <div class="rates">
+      <div class="rate">
+        <span class="mono who">One on one</span>
+        <b>$80<i>/hour</i></b>
+        <p>Private lesson, junior or adult. Full hour of court time with the coach on one player.</p>
+      </div>
+      <div class="rate">
+        <span class="mono who">Group</span>
+        <b>$30<i>/player</i></b>
+        <p>Small group, junior or adult. Bring a sibling, a friend, or a doubles partner and the rate is per player.</p>
+      </div>
+    </div>
+    <p class="rate-note">Text her the details and she confirms the exact rate for what you are after before anything is booked.</p>
   </div>
 </section>
 
@@ -494,7 +539,7 @@
       <div>
         <span class="mono eyebrow">Booking</span>
         <h2>Send one text and we'll find a court.</h2>
-        <p class="lede">No portal, no waitlist. Say who's playing and when you're free, and she'll come back with times and rates.</p>
+        <p class="lede">No portal, no waitlist. Say who's playing and when you're free, and she'll come back with times.</p>
         <ul class="checklist">
           <li>Player's age and how long they've been playing</li>
           <li>What you're after: first lessons, team tryouts, league season, or just getting back out there</li>

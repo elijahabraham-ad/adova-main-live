@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Direction 3: Lineup Card | Enjoyable Tennis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800&family=Instrument+Sans:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --team:#472C7A;
+  --twill:#FBF8F1;
+  --ink:#191722;
+  --gold:#E8B23C;
+  --tape:#D6D0C4;
+  --live:#2FBF71;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--twill);color:var(--ink);font-family:'Instrument Sans',system-ui,sans-serif;font-size:17px;line-height:1.58;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 32px}
+.mono{font-family:'Spline Sans Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.big{font-family:'Big Shoulders Display',system-ui,sans-serif;font-weight:800;letter-spacing:.005em;text-transform:uppercase;line-height:.9}
+
+.chip{position:fixed;top:0;left:0;right:0;background:var(--ink);color:var(--twill);z-index:60;padding:7px 0}
+.chip .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.chip .mono{font-size:11px;opacity:.85}
+
+/* ---- team field header ---- */
+.field{background:var(--team);color:var(--twill);padding-top:56px;position:relative;overflow:hidden}
+.field:before{content:"";position:absolute;top:-40px;right:-90px;font-size:0;width:420px;height:420px;border:44px solid rgba(255,255,255,.045);border-radius:50%}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:20px 0;border-bottom:1px solid rgba(251,248,241,.22);position:relative;z-index:2}
+.mark{display:flex;align-items:center;gap:12px}
+.crest{width:30px;height:34px;background:var(--gold);clip-path:polygon(0 0,100% 0,100% 68%,50% 100%,0 68%);display:grid;place-items:center;flex:none}
+.crest span{font-family:'Big Shoulders Display';font-weight:800;font-size:17px;color:var(--team);line-height:1;margin-top:-4px}
+.mark b{font-family:'Big Shoulders Display';font-weight:700;font-size:26px;letter-spacing:.02em;text-transform:uppercase}
+.navlinks{display:flex;gap:26px}
+.navlinks a{color:rgba(251,248,241,.82);text-decoration:none;font-weight:500;font-size:15px}
+
+.hero{padding:60px 0 68px;display:grid;grid-template-columns:1.02fr .98fr;gap:56px;align-items:center;position:relative;z-index:2}
+.season{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:var(--ink);padding:6px 13px;border-radius:3px;font-weight:500}
+h1{font-family:'Big Shoulders Display';font-weight:800;text-transform:uppercase;font-size:clamp(56px,8.6vw,116px);line-height:.84;letter-spacing:.004em;margin:22px 0 20px}
+h1 em{font-style:normal;color:var(--gold)}
+.lede{font-size:18.5px;color:rgba(251,248,241,.82);max-width:40ch}
+.cta{display:flex;gap:13px;flex-wrap:wrap;margin-top:30px}
+.btn{display:inline-block;padding:15px 26px;border-radius:4px;text-decoration:none;font-weight:600;font-size:16px}
+.btn-a{background:var(--gold);color:var(--ink)}
+.btn-b{border:2px solid rgba(251,248,241,.45);color:var(--twill)}
+.venue{margin-top:26px;font-size:13.5px;color:rgba(251,248,241,.6);letter-spacing:.03em}
+
+/* ---- SIGNATURE: the lineup board ---- */
+.board{background:var(--twill);color:var(--ink);border-radius:6px;box-shadow:0 26px 60px rgba(0,0,0,.28);overflow:hidden;position:relative}
+.board .head{background:var(--ink);color:var(--twill);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:14px}
+.board .head b{font-family:'Big Shoulders Display';font-weight:700;font-size:20px;text-transform:uppercase;letter-spacing:.03em}
+.board .head span{font-size:11px}
+.lines{position:relative}
+.lrow{display:grid;grid-template-columns:48px 1fr 96px 74px;align-items:center;gap:14px;padding:15px 20px 15px 66px;border-bottom:1px solid var(--tape);position:relative}
+.lrow:last-child{border-bottom:none}
+.lrow .ln{font-family:'Big Shoulders Display';font-weight:800;font-size:30px;line-height:1;color:var(--team)}
+.lrow h5{font-size:15.5px;font-weight:600;line-height:1.25}
+.lrow h5 small{display:block;font-weight:400;font-size:12.5px;color:rgba(25,23,34,.58);margin-top:2px}
+.lrow .age{font-family:'Spline Sans Mono',monospace;font-size:12px;color:rgba(25,23,34,.62);font-variant-numeric:tabular-nums}
+.status{font-family:'Spline Sans Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:4px 8px;border-radius:3px;background:var(--tape);color:rgba(25,23,34,.6);text-align:center}
+.lrow.on{background:rgba(71,44,122,.06)}
+.lrow.on .status{background:var(--live);color:#062B16}
+.you{position:absolute;left:0;top:0;height:56px;width:5px;background:var(--gold);z-index:3}
+.you:after{content:"YOU";position:absolute;left:11px;top:50%;transform:translateY(-50%);font-family:'Spline Sans Mono',monospace;font-size:9.5px;letter-spacing:.12em;color:var(--gold);background:var(--ink);padding:3px 6px;border-radius:2px;white-space:nowrap}
+.board .foot{padding:13px 20px;background:#F2EDE2;border-top:1px solid var(--tape);font-size:12.5px;color:rgba(25,23,34,.62)}
+
+/* ---- credential rail ---- */
+.rail{background:var(--ink);color:var(--twill)}
+.rail .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;padding-top:24px;padding-bottom:24px}
+.rail b{display:block;color:var(--gold);margin-bottom:5px}
+.rail p{font-size:13.5px;color:rgba(251,248,241,.8);line-height:1.45}
+
+/* ---- programs band ---- */
+.band{padding:80px 0}
+.bandhead{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:34px;flex-wrap:wrap}
+h2{font-family:'Big Shoulders Display';font-weight:800;text-transform:uppercase;font-size:clamp(40px,5.6vw,72px);line-height:.88;letter-spacing:.005em}
+.bandhead p{max-width:40ch;color:rgba(25,23,34,.68);font-size:16px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.card{border:2px solid var(--ink);border-radius:5px;padding:0 0 22px;overflow:hidden;background:#fff}
+.card .cap{background:var(--team);color:var(--twill);padding:9px 16px;display:flex;justify-content:space-between;align-items:center}
+.card .cap .mono{font-size:10.5px}
+.card .cap .num{font-family:'Big Shoulders Display';font-weight:800;font-size:22px;color:var(--gold);line-height:1}
+.card h4{font-family:'Big Shoulders Display';font-weight:700;text-transform:uppercase;font-size:26px;line-height:.92;padding:18px 16px 8px}
+.card p{font-size:14.5px;color:rgba(25,23,34,.72);line-height:1.5;padding:0 16px}
+
+/* ---- booking ---- */
+.book{background:var(--team);color:var(--twill);border-radius:8px;padding:52px 46px;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;margin-bottom:76px}
+.book h2{font-size:clamp(34px,4.4vw,56px);line-height:.92}
+.book h2 em{font-style:normal;color:var(--gold)}
+.book p{margin-top:16px;color:rgba(251,248,241,.8);max-width:38ch}
+.book ul{margin-top:22px;list-style:none;display:flex;flex-direction:column;gap:10px}
+.book li{font-size:15px;color:rgba(251,248,241,.85);padding-left:26px;position:relative}
+.book li:before{content:"";position:absolute;left:0;top:8px;width:13px;height:3px;background:var(--gold)}
+.bookbox{background:var(--twill);color:var(--ink);border-radius:5px;padding:28px;border-top:6px solid var(--gold)}
+.bookbox .mono{color:rgba(25,23,34,.6);display:block;margin-bottom:12px}
+.bookbox a.tel{display:block;font-family:'Big Shoulders Display';font-weight:800;font-size:42px;line-height:.9;color:var(--ink);text-decoration:none}
+.bookbox .btn-a{display:block;margin-top:20px;text-align:center;background:var(--ink);color:var(--twill)}
+.bookbox small{display:block;margin-top:14px;font-size:13px;color:rgba(25,23,34,.58)}
+footer{border-top:2px solid var(--ink);padding:22px 0 46px;font-size:13px;color:rgba(25,23,34,.62);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+@media(max-width:820px){
+  .wrap{padding:0 20px}
+  .navlinks{display:none}
+  .hero{grid-template-columns:1fr;gap:34px;padding:34px 0 46px}
+  .lede{max-width:none}
+  .rail .wrap{grid-template-columns:1fr 1fr;gap:18px}
+  .grid4{grid-template-columns:1fr}
+  .book{grid-template-columns:1fr;padding:34px 24px;gap:30px}
+  .lrow{grid-template-columns:40px 1fr 68px;gap:10px;padding:13px 14px 13px 62px}
+  .lrow .status{display:none}
+  .field:before{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="chip"><div class="wrap"><span class="mono">Direction 3 / Lineup Card</span><span class="mono">Enjoyable Tennis concept</span></div></div>
+
+<div class="field">
+  <div class="wrap">
+    <div class="bar">
+      <div class="mark"><span class="crest"><span>ET</span></span><b>Enjoyable Tennis</b></div>
+      <nav class="navlinks"><a href="#">Programs</a><a href="#">Courts</a><a href="#">Coach</a><a href="#">Book</a></nav>
+    </div>
+
+    <section class="hero">
+      <div>
+        <span class="season mono">Marietta, GA &middot; PTR Certified</span>
+        <h1>Get your<br/>name on<br/><em>the sheet.</em></h1>
+        <p class="lede">Tennis lessons in west Cobb for kids who want to get good, high school players chasing a spot, and grown-ups starting over. Coached by Sheana Sinclair-Abraham.</p>
+        <div class="cta">
+          <a class="btn btn-a" href="#book">Text (718) 930-4185</a>
+          <a class="btn btn-b" href="#">See the lineup</a>
+        </div>
+        <p class="venue">Lost Mountain Tennis Center &nbsp;&middot;&nbsp; Fair Oaks Tennis Center</p>
+      </div>
+
+      <div class="board">
+        <div class="head"><b>Enjoyable Tennis &middot; Lineup</b><span class="mono">Cobb County</span></div>
+        <div class="lines">
+          <span class="you"></span>
+          <div class="lrow on">
+            <span class="ln">L1</span>
+            <h5>First swings<small>Red and orange ball, shorter court</small></h5>
+            <span class="age">Ages 5&ndash;10</span>
+            <span class="status">Open</span>
+          </div>
+          <div class="lrow on">
+            <span class="ln">L2</span>
+            <h5>Junior development<small>Match play, patterns, tournaments</small></h5>
+            <span class="age">Ages 9&ndash;14</span>
+            <span class="status">Open</span>
+          </div>
+          <div class="lrow">
+            <span class="ln">L3</span>
+            <h5>Middle and high school<small>Tryout-ready, then in-season</small></h5>
+            <span class="age">Grades 6&ndash;12</span>
+            <span class="status">Waitlist</span>
+          </div>
+          <div class="lrow on">
+            <span class="ln">L4</span>
+            <h5>Adult and league<small>ALTA, USTA, or starting over</small></h5>
+            <span class="age">18+</span>
+            <span class="status">Open</span>
+          </div>
+        </div>
+        <div class="foot">Same coach on every line. Text her which one you're playing.</div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div class="rail">
+  <div class="wrap">
+    <div><b class="mono">Certified</b><p>Professional Tennis Registry, Level 1</p></div>
+    <div><b class="mono">County approved</b><p>On the Cobb County PARKS approved teaching professionals list</p></div>
+    <div><b class="mono">AYTEF</b><p>High School Tennis Coordinator, Atlanta Youth Tennis &amp; Education Foundation</p></div>
+    <div><b class="mono">Day job</b><p>Math teacher in the Cobb County School District</p></div>
+  </div>
+</div>
+
+<div class="wrap">
+<section class="band">
+  <div class="bandhead">
+    <h2>Four ways in,<br/>one court.</h2>
+    <p>Same coach, same standard. The only thing that changes is where you're starting from.</p>
+  </div>
+  <div class="grid4">
+    <div class="card">
+      <div class="cap"><span class="mono">Line 1</span><span class="num">01</span></div>
+      <h4>First swings</h4>
+      <p>Red and orange balls, shorter courts, lighter frames. Kids learn to rally in the first few sessions instead of chasing balls into the fence.</p>
+    </div>
+    <div class="card">
+      <div class="cap"><span class="mono">Line 2</span><span class="num">02</span></div>
+      <h4>Junior development</h4>
+      <p>Strokes built properly, then match play, patterns, and how to hold up when a set gets tight. For players heading toward tournaments and team tennis.</p>
+    </div>
+    <div class="card">
+      <div class="cap"><span class="mono">Line 3</span><span class="num">03</span></div>
+      <h4>Middle and high school</h4>
+      <p>Tryout-ready in the off-season, sharp during it. Serve, return, doubles positioning, and the point-by-point discipline coaches actually pick for.</p>
+    </div>
+    <div class="card">
+      <div class="cap"><span class="mono">Line 4</span><span class="num">04</span></div>
+      <h4>Whenever you started</h4>
+      <p>Brand new, back after twenty years off, or holding down a line in ALTA or USTA league. Same coach, same patience.</p>
+    </div>
+  </div>
+</section>
+
+<section class="book" id="book">
+  <div>
+    <h2>Send one text and<br/>we'll <em>find a court.</em></h2>
+    <p>No portal, no waitlist. Say who's playing and when you're free, and she'll come back with times and rates.</p>
+    <ul>
+      <li>Player's age and how long they've been playing</li>
+      <li>What you're after: first lessons, team tryouts, league season, or just getting back out there</li>
+      <li>Lost Mountain or Fair Oaks, and the days that work</li>
+    </ul>
+  </div>
+  <div class="bookbox">
+    <span class="mono">Text Coach Sheana</span>
+    <a class="tel" href="tel:+17189304185">(718) 930-4185</a>
+    <a class="btn btn-a" href="sms:+17189304185">Start the text</a>
+    <small>sheanace@yahoo.com</small>
+  </div>
+</section>
+
+<footer>
+  <span>Enjoyable Tennis LLC &middot; Marietta, Georgia</span>
+  <span>Lessons at Cobb County PARKS tennis centers</span>
+</footer>
+</div>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Direction 1 — Ball Pathway | Enjoyable Tennis</title>
+<title>Direction 1: Ball Pathway | Enjoyable Tennis</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Hanken+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -60,22 +60,24 @@ h1 em{font-style:normal;color:var(--brand)}
 .ladder{background:#fff;border:2px solid var(--ink);border-radius:20px;padding:26px 24px 22px;box-shadow:8px 8px 0 var(--ink)}
 .ladder h3{font-family:'Archivo';font-variation-settings:'wdth' 112,'wght' 800;font-size:20px;letter-spacing:-.01em;margin-bottom:4px}
 .ladder p.sub{font-size:14px;color:rgba(16,36,28,.62);margin-bottom:22px}
-.track{position:relative;display:grid;grid-template-columns:repeat(4,1fr);align-items:end;padding-bottom:2px}
-.track:before{content:"";position:absolute;left:11%;right:11%;bottom:78px;height:4px;background:var(--rule);border-radius:2px}
-.track:after{content:"";position:absolute;left:11%;width:52%;bottom:78px;height:4px;background:var(--ink);border-radius:2px}
-.stage{display:flex;flex-direction:column;align-items:center;gap:12px;position:relative;z-index:2}
+.track{position:relative;display:grid;grid-template-columns:repeat(4,1fr)}
+.track:before{content:"";position:absolute;left:12.5%;right:12.5%;top:34px;height:4px;background:var(--rule);border-radius:2px;transform:translateY(-2px)}
+.track:after{content:"";position:absolute;left:12.5%;width:25%;top:34px;height:4px;background:var(--ink);border-radius:2px;transform:translateY(-2px)}
+.stage{display:flex;flex-direction:column;align-items:center;position:relative;z-index:2}
+.dotwrap{height:68px;display:grid;place-items:center}
 .dot{border-radius:50%;border:2.5px solid var(--ink);position:relative;background:#fff}
-.dot:after{content:"";position:absolute;inset:14% 32%;border-left:2px solid rgba(16,36,28,.45);border-right:2px solid rgba(16,36,28,.45);border-radius:50%}
+.dot:after{content:"";position:absolute;inset:16% 34%;border-left:1.5px solid rgba(16,36,28,.4);border-right:1.5px solid rgba(16,36,28,.4);border-radius:50%}
 .s1 .dot{width:38px;height:38px;background:var(--red)}
 .s2 .dot{width:46px;height:46px;background:var(--orange)}
 .s3 .dot{width:54px;height:54px;background:var(--brand)}
 .s4 .dot{width:62px;height:62px;background:var(--yellow)}
-.stage.locked .dot{background:transparent;border-style:dashed;border-color:rgba(16,36,28,.34);opacity:.7}
-.stage.locked .dot:after{opacity:.25}
-.stage.here:before{content:"";position:absolute;bottom:-9px;width:100%;height:4px;background:var(--ink);border-radius:2px}
-.slab{text-align:center}
-.slab b{display:block;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;margin-bottom:3px}
-.slab span{display:block;font-size:12px;line-height:1.35;color:rgba(16,36,28,.6);max-width:11ch;margin:0 auto}
+.stage.locked .dot{background:transparent;border-style:dashed;border-color:rgba(16,36,28,.3)}
+.stage.locked .dot:after{display:none}
+.stage.here .dot{box-shadow:0 0 0 4px var(--ground),0 0 0 7px var(--ink)}
+.slab{text-align:center;padding-top:14px;min-height:62px}
+.slab b{display:block;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;margin-bottom:4px}
+.stage.locked .slab b{color:rgba(16,36,28,.45)}
+.slab span{display:block;font-size:12px;line-height:1.35;color:rgba(16,36,28,.58);max-width:12ch;margin:0 auto}
 .laddernote{margin-top:22px;padding-top:16px;border-top:1px dashed var(--rule);font-size:13px;color:rgba(16,36,28,.66)}
 
 /* ---- credential rail ---- */
@@ -120,9 +122,10 @@ footer{border-top:2px solid var(--ink);padding:22px 0 44px;font-size:13px;color:
   .rail{grid-template-columns:1fr 1fr;gap:16px}
   .grid4{grid-template-columns:1fr}
   .book{grid-template-columns:1fr;padding:34px 26px;gap:30px}
-  .track:before,.track:after{bottom:70px}
-  .s4 .dot{width:52px;height:52px}.s3 .dot{width:46px;height:46px}
-  .s2 .dot{width:40px;height:40px}.s1 .dot{width:34px;height:34px}
+  .dotwrap{height:56px}
+  .track:before,.track:after{top:28px}
+  .s4 .dot{width:50px;height:50px}.s3 .dot{width:44px;height:44px}
+  .s2 .dot{width:38px;height:38px}.s1 .dot{width:32px;height:32px}
   .slab span{font-size:11px}
   .ladder{box-shadow:5px 5px 0 var(--ink)}
 }
@@ -130,7 +133,7 @@ footer{border-top:2px solid var(--ink);padding:22px 0 44px;font-size:13px;color:
 </head>
 <body>
 
-<div class="chip"><div class="wrap"><span class="mono">Direction 1 / Ball Pathway</span><span class="mono">Enjoyable Tennis — concept</span></div></div>
+<div class="chip"><div class="wrap"><span class="mono">Direction 1 / Ball Pathway</span><span class="mono">Enjoyable Tennis concept</span></div></div>
 
 <div class="wrap">
 <header>
@@ -157,19 +160,19 @@ footer{border-top:2px solid var(--ink);padding:22px 0 44px;font-size:13px;color:
     <p class="sub">Four balls, four courts. You move up when you can rally, not when you turn a certain age.</p>
     <div class="track">
       <div class="stage s1 here">
-        <div class="dot"></div>
+        <div class="dotwrap"><div class="dot"></div></div>
         <div class="slab"><b>Red</b><span>36 ft court</span></div>
       </div>
       <div class="stage s2">
-        <div class="dot"></div>
+        <div class="dotwrap"><div class="dot"></div></div>
         <div class="slab"><b>Orange</b><span>60 ft court</span></div>
       </div>
       <div class="stage s3 locked">
-        <div class="dot"></div>
+        <div class="dotwrap"><div class="dot"></div></div>
         <div class="slab"><b>Green</b><span>Full court, low bounce</span></div>
       </div>
       <div class="stage s4 locked">
-        <div class="dot"></div>
+        <div class="dotwrap"><div class="dot"></div></div>
         <div class="slab"><b>Yellow</b><span>Full court, real ball</span></div>
       </div>
     </div>
